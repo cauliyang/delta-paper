@@ -11,8 +11,9 @@
 \usepackage{lmodern}
 \usepackage[size=custom,width=120,height=72,scale=1.0]{beamerposter}
 \usetheme{gemini}
-\usecolortheme{gemini}
+\usecolortheme{nw}
 \usepackage{graphicx}
+\usepackage{epstopdf} %converting to PDF
 \usepackage{booktabs}
 \usepackage{tikz}
 \usepackage{pgfplots}
@@ -36,20 +37,20 @@
 % Title
 % ====================
 
-\title{Some fancy title: followed by some more text}
+\title{DeepSVA: Annotate Structure Variations with Gene Fusion by Deep Learning}
 
-\author{Alyssa P. Hacker \inst{1} \and Ben Bitdiddle \inst{2} \and Lem E. Tweakit \inst{2}}
+\author{Yangyang Li \inst{1} \and Rendong Yang \inst{1}}
 
-\institute[shortinst]{\inst{1} Some Institute \samelineand \inst{2} Another Institute}
+\institute[shortinst]{\inst{1} Department of Urology, Northwestern University Feinberg School of Medicine \samelineand}
 
 % ====================
 % Footer (optional)
 % ====================
 
 \footercontent{
-  \href{https://www.example.com}{https://www.example.com} \hfill
+  \href{https://yangyangli.top}{https://yangyangli.top} \hfill
   ABC Conference 2025, New York --- XYZ-1234 \hfill
-  \href{mailto:alyssa.p.hacker@example.com}{alyssa.p.hacker@example.com}}
+  \href{yangyang.li@northwester.edu}{yangyang.li@northwestern.edu}}
 % (can be left out to remove footer)
 
 % ====================
@@ -57,7 +58,7 @@
 % ====================
 
 % use this to include logos on the left and/or right side of the header:
-% \logoright{\includegraphics[height=7cm]{logo1.pdf}}
+\logoright{\includegraphics[height=1cm]{./logo.eps}}
 % \logoleft{\includegraphics[height=7cm]{logo2.pdf}}
 
 % ====================
