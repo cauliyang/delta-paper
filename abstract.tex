@@ -36,7 +36,7 @@
 
 \author[1]{Yangyang Li}
 \author[1]{Rendong Yang}
-\affil[1]{Department of Urology, Northwestern University Feinberg School of Medicine, Chicago, IL 60611,
+\affil[1]{\small Department of Urology, Northwestern University Feinberg School of Medicine, Chicago, IL 60611,
 USA.}
 
 \begin{document}
@@ -65,17 +65,17 @@ So, we use Arriba to detect gene fusion.
 As for DNA structural variations, we use the results from SvABA, a tool for structural variation detection.
 So, training data consists of gene fusion and DNA structural variations detected by Arriba and SvABA\@.
 
-How to construct a high quality training data is significant part in deep learning.
+Constructing high-quality training data is a significant part of deep learning.
 Considering the confidence of our training data, we use predefined rules and distance thresholds to construct training data as ground truth.
-The predefined rules require that the variation type of gene fusion and DNA structural variations should be the same, and breakpoints of gene fusion and DNA structural variations should be compatible.
+The predefined rules require that the variation type of gene fusion and DNA structural variations be the same, and breakpoints of gene fusion and DNA structural variations should be compatible.
 Specially, we use an interval tree as the foundation of the predefined rules.
 The interval tree is a data structure, and it can store intervals and query if an interval is overlapped with any interval in the tree.
 We use modern \textit{C++} to implement the interval tree based on the red-black tree, which is a self-balancing binary search tree.
-Modern \textit{C++} contains useful features, for instance, Concepts and Ranges, which can help us to write more readable, maintainable and efficient code.
+Modern \textit{C++} contains useful features, for instance, Concepts and Ranges, which can help us to write more readable, maintainable, and efficient code.
 The implementation of the interval tree is from an evolving project of our lab called \textit{BINARY}.
 \textit{BINARY} is a modern \textit{C++} library for bioinformatics and plans to provide easy-to-use APIs\@.
 
-% How to build model
+% How to build a model
 People apply deep learning to solve biological problems widely, from AlphaFold to deepconsensus.
 It turns out that deep learning can be a powerful tool for processing sequencing data.
 We use k-mers of sequences around breakpoints as features to train DELTA\@.
@@ -94,7 +94,7 @@ Therefore, DELTA can help people to understand the mechanism of gene fusion and 
 
 % rules sv2fg
 % build deep learning model for classification
-% predicte high confidence SVs that can cause gene fusion
+% predict high confidence SVs that can cause gene fusion
 
 
 
