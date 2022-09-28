@@ -19,6 +19,9 @@
 	round-precision = 3
 }%
 
+
+\usepackage{authblk}
+
 % custom commands
 \renewcommand*{\backref}[1]{}
 \renewcommand*{\backrefalt}[4]{{\footnotesize [%
@@ -30,7 +33,11 @@
 
 %meeting link https://meetings.cshl.edu/meetings.aspx?meet=DATA&year=22
 \title{DELTA:An Annotator of structural Variations Based on Deep Learning}
-\author{Yangyang Li}
+
+\author[1]{Yangyang Li}
+\author[1]{Rendong Yang}
+\affil[1]{Department of Urology, Northwestern University Feinberg School of Medicine, Chicago, IL 60611,
+USA.}
 
 \begin{document}
 \maketitle
@@ -48,19 +55,23 @@ Annotated DNA structural variations can provide solid insights for the study of 
 At the same time, we try to seek explanations for the prediction of DELTA and find sequence patterns that play an important role in prediction.
 
 % How to construct dataset
-We develop DELTA on Illumina sequencing data in that most tools are used to detect DNA structural variations and gene fusions based on Illumina sequencing data.
+We are going to develop DELTA on Illumina sequencing data in that most tools are used to detect DNA structural variations and gene fusions based on Illumina sequencing data.
+Nevertheless, DELTA can be generalized to long-read sequencing data.
 Currently, people have developed plenty of tools to detect gene fusion.
 Arriba is a state-of-the-art tool for gene fusion detection.
 It claims to be able to detect gene fusion with higher sensitivity and specificity compared to other tools.
+Importantly, Arriba is able to report the variation type of gene fusion.
 So, we use Arriba to detect gene fusion.
 As for DNA structural variations, we use the results from SvABA, a tool for structural variation detection.
 So, training data consists of gene fusion and DNA structural variations detected by Arriba and SvABA\@.
 
+How to construct a high quality training data is significant part in deep learning.
 Considering the confidence of our training data, we use predefined rules and distance thresholds to construct training data as ground truth.
-We use an interval tree as the foundation of the algorithm.
+The predefined rules require that the variation type of gene fusion and DNA structural variations should be the same, and breakpoints of gene fusion and DNA structural variations should be compatible.
+Specially, we use an interval tree as the foundation of the predefined rules.
 The interval tree is a data structure, and it can store intervals and query if an interval is overlapped with any interval in the tree.
 We use modern \textit{C++} to implement the interval tree based on the red-black tree, which is a self-balancing binary search tree.
-Modern \textit{C++} contains useful features, for instance, Concepts and Ranges, which can help us to write more readable and maintainable code.
+Modern \textit{C++} contains useful features, for instance, Concepts and Ranges, which can help us to write more readable, maintainable and efficient code.
 The implementation of the interval tree is from an evolving project of our lab called \textit{BINARY}.
 \textit{BINARY} is a modern \textit{C++} library for bioinformatics and plans to provide easy-to-use APIs\@.
 
@@ -69,13 +80,15 @@ People apply deep learning to solve biological problems widely, from AlphaFold t
 It turns out that deep learning can be a powerful tool for processing sequencing data.
 We use k-mers of sequences around breakpoints as features to train DELTA\@.
 We will try different architectures, including CNN-based, RNN-based, and Transformer-based models.
-Besides, we will evaluate the performance of DELTA on different datasets.
+Besides, we will evaluate the performance of DELTA on different datasets to measure the generalization of our model.
 Finally, we will try to find sequence patterns to explain what is behind the model.
 
 After training, DELTA can annotate if a DNA structural variation can trigger gene fusion.
 This can help people focus on structural variations that are more likely to cause gene fusion.
 We will deploy the model and related algorithm as a standard-alone tool with \textit{C++}.
 That means DELTA will be a high-quality and performance tool, and it will support both CPU and GPU\@.
+People can use DELTA to annotate DNA structural variations in a short time.
+Therefore, DELTA can help people to understand the mechanism of gene fusion and find potential targets for further study.
 
 
 
