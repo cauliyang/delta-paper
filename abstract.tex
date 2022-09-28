@@ -11,14 +11,78 @@
 % Useful packages
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage[colorlinks=true, allcolors=blue, backref=page]{hyperref}
+\usepackage{siunitx}
+% ---
+\sisetup{
+	round-mode = places,
+	round-precision = 3
+}%
+
+% custom commands
+\renewcommand*{\backref}[1]{}
+\renewcommand*{\backrefalt}[4]{{\footnotesize [%
+    \ifcase #1 Not cited.%
+	\or Cited on page~#2%
+	\else Cited on pages #2%
+	\fi%
+]}}
 
 %meeting link https://meetings.cshl.edu/meetings.aspx?meet=DATA&year=22
-\title{Abstract for biological data science}
+\title{DELTA:An Annotator of structural Variations Based on Deep Learning}
 \author{Yangyang Li}
 
 \begin{document}
 \maketitle
+
+% Introduce Gene Fusion
+
+
+Gene fusion is a kind of structural variation that happens in the transcriptome.
+It means the fusion of two genes or the fusion of a gene and a non-coding RNA\@.
+It is a common type of cancer-driver mutation.
+Moreover, people regard DNA structural variations as one of the potential reasons for gene fusion.
+So we want to develop a deep learning model called DELTA to annotate DNA structural variations, which can help us understand the mechanism of gene fusion.
+DELTA can predict if the DNA structural variations are related to gene fusion.
+Annotated DNA structural variations can provide solid insights for the study of gene fusion and subsequent assay.
+At the same time, we try to seek explanations for the prediction of DELTA and find sequence patterns that play an important role in prediction.
+
+% How to construct dataset
+We develop DELTA on Illumina sequencing data in that most tools are used to detect DNA structural variations and gene fusions based on Illumina sequencing data.
+Currently, people have developed plenty of tools to detect gene fusion.
+Arriba is a state-of-the-art tool for gene fusion detection.
+It claims to be able to detect gene fusion with higher sensitivity and specificity compared to other tools.
+So, we use Arriba to detect gene fusion.
+As for DNA structural variations, we use the results from SvABA, a tool for structural variation detection.
+So, training data consists of gene fusion and DNA structural variations detected by Arriba and SvABA\@.
+
+Considering the confidence of our training data, we use predefined rules and distance thresholds to construct training data as ground truth.
+We use an interval tree as the foundation of the algorithm.
+The interval tree is a data structure, and it can store intervals and query if an interval is overlapped with any interval in the tree.
+We use modern \textit{C++} to implement the interval tree based on the red-black tree, which is a self-balancing binary search tree.
+Modern \textit{C++} contains useful features, for instance, Concepts and Ranges, which can help us to write more readable and maintainable code.
+The implementation of the interval tree is from an evolving project of our lab called \textit{BINARY}.
+\textit{BINARY} is a modern \textit{C++} library for bioinformatics and plans to provide easy-to-use APIs\@.
+
+% How to build model
+People apply deep learning to solve biological problems widely, from AlphaFold to deepconsensus.
+It turns out that deep learning can be a powerful tool for processing sequencing data.
+We use k-mers of sequences around breakpoints as features to train DELTA\@.
+We will try different architectures, including CNN-based, RNN-based, and Transformer-based models.
+Besides, we will evaluate the performance of DELTA on different datasets.
+Finally, we will try to find sequence patterns to explain what is behind the model.
+
+After training, DELTA can annotate if a DNA structural variation can trigger gene fusion.
+This can help people focus on structural variations that are more likely to cause gene fusion.
+We will deploy the model and related algorithm as a standard-alone tool with \textit{C++}.
+That means DELTA will be a high-quality and performance tool, and it will support both CPU and GPU\@.
+
+
+
+% rules sv2fg
+% build deep learning model for classification
+% predicte high confidence SVs that can cause gene fusion
+
 
 
 % \bibliographystyle{alpha}
