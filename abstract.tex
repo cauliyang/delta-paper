@@ -38,51 +38,72 @@
 \author[1]{Rendong Yang}
 \affil[1]{\small Department of Urology, Northwestern University Feinberg School of Medicine, Chicago, IL 60611,
 USA.}
+\date{}
 
 \begin{document}
 \maketitle
 
-% Introduce Gene Fusion
-
-
+\paragraph*{Background}
 Gene fusion is a type of RNA alteration that produces aberrant protein products by joining two protein-coding genes or a coding gene with a non-coding RNA\@.
 It frequently occurs in cancer and is often identified as a cancer driver.
 Mechanistically, gene fusions are caused by underlying genomic structural variations (SV).
 However, which SVs can cause gene fusions are still unknown.
 In this study, we developed a deep learning model called DELTA to annotate DNA structural variations, which can help to understand the mechanism of gene fusion.
-DELTA can predict if the DNA structural variations can potentially cause a gene fusion product that is important to tumorigenesis.
-In addition, we designed DELTA as an interpretable machine learning framework that allows us to predict the genomic sequences, determining the gene fusion formation.
 
-
-% How to construct the dataset
-We developed DELTA on Illumina short-read sequencing data in that most tools are used to detect DNA structural variations and gene fusions based on these data.
+\paragraph*{Methods}
+We built DELTA on Illumina short-read sequencing data in that most tools are used to detect DNA structural variations and gene fusions based on these data.
 However, DELTA can be generalized to analyze long-read sequencing data.
-Currently, plenty of tools have been developed to detect gene fusion and SVs.
-In this study, we used Arriba for gene fusion detection as it is superior for detecting gene fusion with higher sensitivity and specificity compared to other tools.
-Importantly, Arriba is able to report the variation type of gene fusion.
+We used Arriba for gene fusion detection as it is superior for detecting gene fusion with higher sensitivity and specificity compared to other tools.
 As for DNA structural variations, we use the predictions from SvABA, a tool for structural variation detection.
-The training data consists of gene fusions and SVs detected by Arriba and SvABA, respectively\@.
+The training data consists of gene fusions and SVs detected by Arriba and SvABA, respectively.
 
-Constructing high-quality training data is a significant part of deep learning.
 Considering the confidence of training data, we use predefined rules and distance thresholds to construct training data as ground truth.
 The predefined rules require that the variation type of gene fusion and DNA structural variations be the same, and breakpoints of gene fusion and DNA structural variations be clustered in a rule-based approach.
 In particular, we implemented an interval tree to cluster gene fusions and SVs with the defined rules.
-The interval tree is a data structure, and it can store intervals and query if an interval is overlapped with any interval in the tree.
 We use modern \textit{C++} to implement the interval tree based on the red-black tree, which is a self-balancing binary search tree.
 Modern \textit{C++} contains useful features, for instance, Concepts and Ranges, which can help us to write more readable, maintainable, and efficient code.
-The implementation of the interval tree is from an evolving project in our lab called BINARY\@.
-BINARY is a modern \textit{C++} library for bioinformatics and plans to provide easy-to-use APIs\@.
 
-% How to build a model
+\paragraph*{Results}
 We applied a deep learning model to process the sequence data. We use k-mers of sequences around breakpoints as features to train DELTA\@.
 Furthermore, we tested the performance of different network architectures, including CNN-based, RNN-based, and Transformer-based models.
 Moreover, we evaluated the performance of DELTA on different large-scale cancer genomic sequencing datasets (e.g., TCGA, ICGC, and CCLE) to measure the generalization of our model.
 Finally, we identified sequence patterns that can explain the associations between SVs and gene fusions.
 
+
+\paragraph*{Conclusions}
 In summary, DELTA can annotate if a DNA structural variation can trigger gene fusion.
 It provided a powerful tool for the community to evaluate and nominate the important SVs that can generate functional novel proteins to cause tumor development.
+We deployed the model and related algorithm as a standard-alone tool with \textit{C++}. DELTA is a high-performance tool that can support both CPU and GPU\@.
 
-We deployed the model and related algorithm as a standard-alone tool with \textit{C++}.DELTA is a high-performance tool that can support both CPU and GPU\@.
+
+
+% % How to construct the dataset
+
+% DELTA can predict if the DNA structural variations can potentially cause a gene fusion product that is important to tumorigenesis.
+% In addition, we designed DELTA as an interpretable machine learning framework that allows us to predict the genomic sequences, determining the gene fusion formation.
+
+% Currently, plenty of tools have been developed to detect gene fusion and SVs.
+
+% Importantly, Arriba is able to report the variation type of gene fusion.
+
+% Constructing high-quality training data is a significant part of deep learning.
+
+
+% The interval tree is a data structure, and it can store intervals and query if an interval is overlapped with any interval in the tree.
+%  BINARY is a modern \textit{C++} library for bioinformatics and plans to provide easy-to-use APIs\@.
+% The implementation of the interval tree is from an evolving project in our lab called BINARY\@.
+
+% % How to build a model
+
+% We applied a deep learning model to process the sequence data. We use k-mers of sequences around breakpoints as features to train DELTA\@.
+% Furthermore, we tested the performance of different network architectures, including CNN-based, RNN-based, and Transformer-based models.
+% Moreover, we evaluated the performance of DELTA on different large-scale cancer genomic sequencing datasets (e.g., TCGA, ICGC, and CCLE) to measure the generalization of our model.
+% Finally, we identified sequence patterns that can explain the associations between SVs and gene fusions.
+
+% In summary, DELTA can annotate if a DNA structural variation can trigger gene fusion.
+% It provided a powerful tool for the community to evaluate and nominate the important SVs that can generate functional novel proteins to cause tumor development.
+
+% We deployed the model and related algorithm as a standard-alone tool with \textit{C++}. DELTA is a high-performance tool that can support both CPU and GPU\@.
 
 
 
