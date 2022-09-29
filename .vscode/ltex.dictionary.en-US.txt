@@ -10,3 +10,7 @@ deepconsensus
 AlphaFold
 k-mers
 Illumina
+SVs
+TCGA
+ICGC
+CCLE
